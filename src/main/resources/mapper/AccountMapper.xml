@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="pers.yuweiyi.crescity.service.account.mapper.AccountMapper">
+
+    <insert id="create">
+        INSERT INTO account (is_deleted, pk_uid, password_hash)
+        VALUES (#{isDeleted,javaType=boolean,jdbcType=BOOLEAN}, #{uid}, #{passwordHash})
+    </insert>
+
+    <select id="retrieveExistence" resultType="boolean">
+        SELECT EXISTS(
+            SELECT 1
+            FROM account
+            WHERE pk_uid=#{uid}
+        )
+    </select>
+</mapper>
