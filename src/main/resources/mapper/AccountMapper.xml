@@ -16,4 +16,10 @@
             WHERE pk_uid=#{uid}
         )
     </select>
+
+    <select id="retrievePasswordHash" resultType="String">
+        SELECT password_hash
+        FROM account
+        WHERE pk_uid=#{uid}
+    </select>
 </mapper>

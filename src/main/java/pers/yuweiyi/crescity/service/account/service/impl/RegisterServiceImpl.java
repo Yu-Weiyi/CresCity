@@ -12,20 +12,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pers.yuweiyi.crescity.service.account.constant.ExceptionConstant;
-import pers.yuweiyi.crescity.service.account.exception.AccountAlreadyRegisteredException;
-import pers.yuweiyi.crescity.service.account.exception.IdentityVerificationFailureException;
+import pers.yuweiyi.crescity.service.account.exception.RegisterFailureException;
 import pers.yuweiyi.crescity.service.account.mapper.AccountMapper;
 import pers.yuweiyi.crescity.service.account.pojo.dao.AccountDao;
 import pers.yuweiyi.crescity.service.account.pojo.dto.RegisterTypeCDto;
 import pers.yuweiyi.crescity.service.account.repository.AccountProfileReactiveRepository;
 import pers.yuweiyi.crescity.service.account.service.RegisterService;
+import pers.yuweiyi.crescity.service.account.util.BCryptUtil;
 import pers.yuweiyi.crescity.service.account.webclient.IdentityVerificationWebclient;
 
 /**
  * Description: 注册服务实现。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.09
  */
 @Service
@@ -33,11 +33,13 @@ import pers.yuweiyi.crescity.service.account.webclient.IdentityVerificationWebcl
 public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
-    AccountMapper accountMapper;
+    private AccountMapper accountMapper;
     @Autowired
-    AccountProfileReactiveRepository accountProfileReactiveRepository;
+    private AccountProfileReactiveRepository accountProfileReactiveRepository;
     @Autowired
-    IdentityVerificationWebclient identityVerificationWebclient;
+    private IdentityVerificationWebclient identityVerificationWebclient;
+    @Autowired
+    private BCryptUtil bCryptUtil;
 
     /**
      * @Description  注册公民账户。
@@ -51,7 +53,7 @@ public class RegisterServiceImpl implements RegisterService {
         String idCardNum = registerTypeCDto.getIdCardNum();
         String realName = registerTypeCDto.getRealName();
         String nickName = registerTypeCDto.getNickName();
-        String passwordHash = registerTypeCDto.getPasswordHash();
+        String password = registerTypeCDto.getPassword();
 
         boolean isValid = identityVerificationWebclient.verify(idCardNum, realName);
         if (isValid) {
@@ -59,30 +61,31 @@ public class RegisterServiceImpl implements RegisterService {
             String newUid = "C" + idCardNum;
             boolean isExisting = accountMapper.retrieveExistence(newUid);
             if (isExisting) {//重复注册
-                throw new AccountAlreadyRegisteredException(ExceptionConstant.USER_ACCOUNT_ALREADY_REGISTERED);
+                throw new RegisterFailureException(ExceptionConstant.USER_ACCOUNT_ALREADY_REGISTERED);
             }
             else {
                 log.debug("新账户注册。");
-                initializeNewAccount(newUid, passwordHash);
+                initializeNewAccount(newUid, password);
                 accountProfileReactiveRepository.updateWhenRegisterTypeC(newUid, idCardNum, realName, nickName);
                 log.debug("新账户注册成功。");
                 return newUid;
             }
         }
         else {//实名认证失败
-            throw new IdentityVerificationFailureException(ExceptionConstant.USER_IDENTITY_VERIFICATION_FAILURE);
+            throw new RegisterFailureException(ExceptionConstant.USER_IDENTITY_VERIFICATION_FAILURE);
         }
     }
 
     /**
      * @Description  初始化账户相关数据库。
      * @param newUid 新账户UID
-     * @param passwordHash 加密密码
+     * @param password 加密密码
      * @return void
      * @Author 于魏祎 Yu Weiyi
      */
-    void initializeNewAccount(String newUid, String passwordHash) {
+    void initializeNewAccount(String newUid, String password) {
 
+        String passwordHash = bCryptUtil.hash(password);
         accountMapper.create(new AccountDao(newUid, passwordHash));
         accountProfileReactiveRepository.create(newUid);
     }

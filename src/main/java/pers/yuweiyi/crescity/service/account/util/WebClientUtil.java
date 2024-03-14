@@ -11,12 +11,12 @@ package pers.yuweiyi.crescity.service.account.util;
 import io.netty.channel.ChannelOption;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import pers.yuweiyi.crescity.service.account.configuration.WebClientConfiguration;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientRequest;
 
@@ -27,41 +27,39 @@ import java.time.Duration;
  * Description: 网络客户端工具。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.09
  */
 @Component
-@ConfigurationProperties(prefix = "crescity.webclient")
 @Data
 @Slf4j
 public class WebClientUtil {
 
+//    @Autowired
+    private WebClientConfiguration webClientConfiguration;
+
     private final WebClient webClient;
 
     private MediaType mediaType = MediaType.APPLICATION_JSON;
-
-    private String host;
-    private String port;
-    private int connectionTimeout;
-    private int responseTimeout;
 
     /**
      * @Description  构造方法。
      * @return WebClientUtil
      * @Author 于魏祎 Yu Weiyi
      */
-    public WebClientUtil() {
+    public WebClientUtil(WebClientConfiguration webClientConfiguration) {
         this.webClient = WebClient.builder()
                 //set timeout
                 .clientConnector(new ReactorClientHttpConnector(
                                 HttpClient.create()
                                         //set connection timeout
-                                        .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectionTimeout)
+                                        .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, webClientConfiguration.getConnectionTimeout())
                                         //set response timeout
-                                        .responseTimeout(Duration.ofMillis(responseTimeout))
+                                        .responseTimeout(Duration.ofMillis(webClientConfiguration.getResponseTimeout()))
                         )
                 )
                 .build();
+        this.webClientConfiguration = webClientConfiguration;
     }
 
     /**
@@ -119,6 +117,6 @@ public class WebClientUtil {
      */
     public WebClient.ResponseSpec request(HttpMethod httpMethod, String path, String pathData, Serializable dtoData) {
 
-        return request(httpMethod, host, port, path, mediaType, responseTimeout, pathData, dtoData);
+        return request(httpMethod, webClientConfiguration.getHost(), webClientConfiguration.getPort(), path, mediaType, webClientConfiguration.getResponseTimeout(), pathData, dtoData);
     }
 }

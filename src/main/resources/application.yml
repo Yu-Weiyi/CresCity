@@ -25,7 +25,11 @@ crescity:
       url: jdbc:redis://8.137.62.188:10003/0
       host: ${crescity.webclient.host}
       port: 10003
+      password: crescity
       database: 0
+  jwt:
+    secret-key: crescity
+    ttl: 3600000
 
 server:
   port: 8080
@@ -46,6 +50,7 @@ spring:
     redis:
       host: ${crescity.database.redis.host}
       port: ${crescity.database.redis.port}
+      password: ${crescity.database.redis.password}
       database: ${crescity.database.redis.database}
       timeout: 3000ms
       lettuce:

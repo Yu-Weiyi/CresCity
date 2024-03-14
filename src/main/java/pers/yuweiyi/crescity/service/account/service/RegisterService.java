@@ -22,7 +22,7 @@ public interface RegisterService {
     /**
      * @Description  注册公民账户。
      * @param registerTypeCDto
-     * @return java.lang.String
+     * @return String
      * @Author 于魏祎 Yu Weiyi
      */
     String registerTypeC(RegisterTypeCDto registerTypeCDto);

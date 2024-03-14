@@ -16,7 +16,7 @@ import java.io.Serializable;
  * Description: 公民类别账户注册传输对象。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.09
  */
 @Data
@@ -25,5 +25,5 @@ public class RegisterTypeCDto implements Serializable {
     private String idCardNum;
     private String realName;
     private String nickName;
-    private String passwordHash;
+    private String password;
 }

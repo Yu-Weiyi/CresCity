@@ -5,7 +5,7 @@ package pers.yuweiyi.crescity.service.account.handler;
  * @author      于魏祎 Yu Weiyi
  * @email       yu_weiyi@outlook.com
  * @date        2024.03.09
- * @last_edit   2024.03.09
+ * @last_edit   2024.03.13
  */
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import pers.yuweiyi.crescity.service.account.pojo.result.Result;
  * Description: 全局异常处理器。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.09
  */
 @RestControllerAdvice
@@ -35,7 +35,7 @@ public class GlobalRxceptionHandler {
     public Result handleException(BaseException ex) {
 
         String error = ex.getMessage();
-        log.error("异常：{}", error);
-        return Result.error(error.substring(0, 5), error.substring(6));//XCODE:说明
+        log.warn("异常：{}", error);
+        return Result.error(error);//XCODE:说明
     }
 }

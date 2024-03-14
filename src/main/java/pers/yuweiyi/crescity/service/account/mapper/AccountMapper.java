@@ -36,4 +36,12 @@ public interface AccountMapper {
      * @Author 于魏祎 Yu Weiyi
      */
     boolean retrieveExistence(String uid);
+
+    /**
+     * @Description  查询加密密码。
+     * @param uid 账户UID。
+     * @return String
+     * @Author 于魏祎 Yu Weiyi
+     */
+    String retrievePasswordHash(String uid);
 }

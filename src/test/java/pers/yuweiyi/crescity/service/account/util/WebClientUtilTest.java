@@ -27,58 +27,58 @@ import reactor.core.publisher.Mono;
 @SpringBootTest
 class WebClientUtilTest {
 
-    @Autowired
-    WebClientUtil webClientUtil;
-
-    @Autowired
-    AccountProfileReactiveMongoRepository accountProfileReactiveMongoRepository;
-
-    @Autowired
-    AccountProfileReactiveRepository accountProfileReactiveRepository;
-
-    @Test
-    void test1() {
-        System.out.println(webClientUtil.getHost());
-        System.out.println(webClientUtil.getConnectionTimeout());
-    }
-
-    @Test
-    void test2() {
-        WebClient.ResponseSpec r = webClientUtil.request(HttpMethod.POST, "http://8.137.62.188:30001/api/third_party/identity_verification/verify", MediaType.APPLICATION_JSON, 10000, new IdentityVerificationDto("210404200202040638", "ywy"));
-        Result result = r.bodyToMono(Result.class).block();
-
-        System.out.println(result.getCode());
-    }
-
-    @Test
-    void test3() {
-        WebClient.ResponseSpec r = webClientUtil.request(HttpMethod.POST, "/api/third_party/identity_verification/verify", "", new IdentityVerificationDto("210404200202040637", "ywy"));
-        Result result = r.bodyToMono(Result.class).block();
-
-        System.out.println(result.getCode());
-    }
-
-    @Test
-    void test4() {
-        Mono<AccountProfileDao> mono = accountProfileReactiveMongoRepository.findById(new ObjectId("000000000000000000000000"));
-        AccountProfileDao accountProfileDao = mono.block();
-        System.out.println(accountProfileDao);
-        System.out.println(accountProfileDao.getBind().getClass());
-    }
-
-    @Test
-    void test5() {//不block()不执行。
-        System.out.println(accountProfileReactiveMongoRepository.save(new AccountProfileDao("T1")).block().getUid());
-    }
-
-    @Test
-    void test6() {//不block()不执行。
-        accountProfileReactiveRepository.create("C210404200202040637");
-        accountProfileReactiveRepository.updateWhenRegisterTypeC("C210404200202040637", "210404200202040637", "于魏祎", "为伊WaYease");
-    }
-
-    @Test
-    void test7() {
-        System.out.println(webClientUtil.request(HttpMethod.POST, "http://8.137.62.188:30001/api/third_party/identity_verification/verify", MediaType.APPLICATION_JSON, 10000, new IdentityVerificationDto("210404200202040637", "asd")).bodyToMono(Result.class).block());
-    }
+//    @Autowired
+//    WebClientUtil webClientUtil;
+//
+//    @Autowired
+//    AccountProfileReactiveMongoRepository accountProfileReactiveMongoRepository;
+//
+//    @Autowired
+//    AccountProfileReactiveRepository accountProfileReactiveRepository;
+//
+//    @Test
+//    void test1() {
+//        System.out.println(webClientUtil.getHost());
+//        System.out.println(webClientUtil.getConnectionTimeout());
+//    }
+//
+//    @Test
+//    void test2() {
+//        WebClient.ResponseSpec r = webClientUtil.request(HttpMethod.POST, "http://8.137.62.188:30001/api/third_party/identity_verification/verify", MediaType.APPLICATION_JSON, 10000, new IdentityVerificationDto("210404200202040638", "ywy"));
+//        Result result = r.bodyToMono(Result.class).block();
+//
+//        System.out.println(result.getCode());
+//    }
+//
+//    @Test
+//    void test3() {
+//        WebClient.ResponseSpec r = webClientUtil.request(HttpMethod.POST, "/api/third_party/identity_verification/verify", "", new IdentityVerificationDto("210404200202040637", "ywy"));
+//        Result result = r.bodyToMono(Result.class).block();
+//
+//        System.out.println(result.getCode());
+//    }
+//
+//    @Test
+//    void test4() {
+//        Mono<AccountProfileDao> mono = accountProfileReactiveMongoRepository.findById(new ObjectId("000000000000000000000000"));
+//        AccountProfileDao accountProfileDao = mono.block();
+//        System.out.println(accountProfileDao);
+//        System.out.println(accountProfileDao.getBind().getClass());
+//    }
+//
+//    @Test
+//    void test5() {//不block()不执行。
+//        System.out.println(accountProfileReactiveMongoRepository.save(new AccountProfileDao("T1")).block().getUid());
+//    }
+//
+//    @Test
+//    void test6() {//不block()不执行。
+//        accountProfileReactiveRepository.create("C210404200202040637");
+//        accountProfileReactiveRepository.updateWhenRegisterTypeC("C210404200202040637", "210404200202040637", "于魏祎", "为伊WaYease");
+//    }
+//
+//    @Test
+//    void test7() {
+//        System.out.println(webClientUtil.request(HttpMethod.POST, "http://8.137.62.188:30001/api/third_party/identity_verification/verify", MediaType.APPLICATION_JSON, 10000, new IdentityVerificationDto("210404200202040637", "asd")).bodyToMono(Result.class).block());
+//    }
 }

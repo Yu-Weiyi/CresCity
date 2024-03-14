@@ -5,7 +5,7 @@ package pers.yuweiyi.crescity.service.account.pojo.result;
  * @author      于魏祎 Yu Weiyi
  * @email       yu_weiyi@outlook.com
  * @date        2024.03.08
- * @last_edit   2024.03.08
+ * @last_edit   2024.03.13
  */
 
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * Description: 结果对象。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.08
  */
 @Data
@@ -64,6 +64,13 @@ public class Result<T> implements Serializable {
         Result<T> newResult = new Result<T>();
         newResult.code = code;
         newResult.msg = msg;
+        return newResult;
+    }
+
+    public static <T> Result<T> error(String exceptionConstant) {
+        Result<T> newResult = new Result<T>();
+        newResult.code = exceptionConstant.substring(0, 5);
+        newResult.msg = exceptionConstant.substring(6);
         return newResult;
     }
 
