@@ -23,7 +23,7 @@ import pers.yuweiyi.crescity.service.account.util.BCryptUtil;
  * Description: 登录服务实现。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.13
  */
 @Service
@@ -50,8 +50,8 @@ public class LoginServiceImpl implements LoginService {
 
         boolean isVerified =  verify(loginByUidDto.getUid(), loginByUidDto.getPassword());
         if (isVerified) {
-            String token = jwtService.createToken(loginByUidDto.getUid());
-            jwtService.storeToken(loginByUidDto.getUid(), token);
+            String token = jwtService.buildToken(loginByUidDto.getUid());
+            jwtService.createToken(loginByUidDto.getUid(), token);
             return token;
         }
         else {

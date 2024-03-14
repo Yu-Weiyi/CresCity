@@ -30,6 +30,7 @@ crescity:
   jwt:
     secret-key: crescity
     ttl: 3600000
+    token-name: authentication
 
 server:
   port: 8080

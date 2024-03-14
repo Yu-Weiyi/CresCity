@@ -12,12 +12,13 @@ package pers.yuweiyi.crescity.service.account.constant;
  * Description: 异常常量。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 0.2
+ * @version 0.3
  * @since 2024.03.09
  */
 public class ExceptionConstant {
 
     //U0000
+    public static final String USER_JWT_TOKEN_VERIFICATION_FAILURE = "U0001" + ":" + "用户JWTtoken校验失败";
 
     //U0010 RegisterFailureException
     public static final String USER_REGISTER_FAILURE = "U0010" + ":" + "用户注册失败";

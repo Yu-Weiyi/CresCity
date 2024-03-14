@@ -22,7 +22,7 @@ import java.time.Duration;
  * Description: JWT存储器接口实现。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.13
  */
 @Repository
@@ -55,10 +55,24 @@ public class JwtRepositoryImpl implements JwtRepository {
      * @Author 于魏祎 Yu Weiyi
      */
     @Override
-    public Mono<String> tetrieve(String uid) {
+    public Mono<String> retrieve(String uid) {
 
         Mono<String> token = reactiveRedisTemplate.opsForValue()
                 .get(uid);
         return token;
+    }
+
+    /**
+     * @param uid 账户UID。
+     * @return void
+     * @Description 删除JWT缓存。
+     * @Author 于魏祎 Yu Weiyi
+     */
+    @Override
+    public void delete(String uid) {
+
+        reactiveRedisTemplate.opsForValue()
+                .delete(uid)
+                .block();
     }
 }

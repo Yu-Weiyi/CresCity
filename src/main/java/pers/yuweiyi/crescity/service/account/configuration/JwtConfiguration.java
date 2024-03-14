@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * Description: JWT配置。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.13
  */
 @Configuration
@@ -28,4 +28,5 @@ public class JwtConfiguration {
 
     private String secretKey;
     private long ttl;
+    private String tokenName;
 }

@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
  * Description: JWT存储器接口。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.13
  */
 public interface JwtRepository {
@@ -34,5 +34,13 @@ public interface JwtRepository {
      * @return Mono String
      * @Author 于魏祎 Yu Weiyi
      */
-    Mono<String> tetrieve(String uid);
+    Mono<String> retrieve(String uid);
+
+    /**
+     * @Description  删除JWT缓存。
+     * @param uid 账户UID。
+     * @return void
+     * @Author 于魏祎 Yu Weiyi
+     */
+    void delete(String uid);
 }

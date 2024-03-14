@@ -8,6 +8,7 @@ package pers.yuweiyi.crescity.service.account.util;
  * @last_edit   2024.03.13
  */
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,7 +23,7 @@ import java.util.Map;
  * Description: JWT工具。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.13
  */
 @Component
@@ -48,5 +49,21 @@ public class JwtUtil {
                 .signWith(signatureAlgorithm, secretKey.getBytes(StandardCharsets.UTF_8))
                 .setExpiration(exp);
         return jwtBuilder.compact();
+    }
+
+    /**
+     * @Description  解密JWT。
+     * @param secretKey JWT密钥
+     * @param token 令牌。
+     * @return Claims
+     * @Author 于魏祎 Yu Weiyi
+     */
+    public static Claims retrieve(String secretKey, String token) {
+
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
+                .parseClaimsJws(token)
+                .getBody();
+        return claims;
     }
 }
