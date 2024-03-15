@@ -1,0 +1,108 @@
+crescity:
+#  webclient:
+#    host: 8.137.62.188
+#    port: 30001
+#    connection-timeout: 10000
+#    response-timeout: 10000
+  database:
+#    postgresql:
+#      url: jdbc:postgresql://8.137.62.188:10001/crescity
+#      host: ${crescity.webclient.host}
+#      port: 10001
+#      username: postgres
+#      password: crescity
+#      database: crescity
+#    mongodb:
+#      uri: mongodb://${crescity.database.mongodb.username}:${crescity.database.mongodb.password}@${crescity.database.mongodb.host}:${crescity.database.mongodb.port}/${crescity.database.mongodb.database}?authSource=${crescity.database.mongodb.auth-source}
+#      url: mongodb://8.137.62.188:10002
+#      host: ${crescity.webclient.host}
+#      port: 10002
+#      username: crescity
+#      password: crescity
+#      database: crescity
+#      auth-source: admin
+    redis:
+      url: jdbc:redis://8.137.62.188:10003/0
+      host: ${crescity.webclient.host}
+      port: 10003
+      password: crescity
+      database: 0
+  jwt:
+    secret-key: crescity
+    ttl: 3600000
+    token-name: authentication
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/service/city-service
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: ${crescity.database.postgresql.url}
+#    username: ${crescity.database.postgresql.username}
+#    password: ${crescity.database.postgresql.password}
+#  data:
+#    mongodb:
+#      uri: ${crescity.database.mongodb.uri}
+#    redis:
+#      host: ${crescity.database.redis.host}
+#      port: ${crescity.database.redis.port}
+#      password: ${crescity.database.redis.password}
+#      database: ${crescity.database.redis.database}
+#      timeout: 3000ms
+#      lettuce:
+#        pool:
+#          max-active: 8
+#          max-wait: -1
+#          max-idle: 8
+#          min-idle: 0
+
+logging:
+  level:
+    pers.yuweiyi.crescity.service.account: info
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: pers.yuweiyi.crescity.service.cityservice.pojo.dao
+  configuration:
+    map-underscore-to-camel-case: true
+
+springdoc:
+  api-docs:
+    #    path: /api-docs
+    enabled: true
+  swagger-ui:
+    enabled: true
+    #    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: pers.yuweiyi.crescity
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    enable-swagger-models: true
+    enable-document-manage: true
+    enable-version: true
+    enable-after-script: true
+    enable-reload-cache-parameter: true
+    enable-request-cache: true
+    enable-search: true
+    enable-footer: false
+    enable-dynamic-parameter: true
+    enable-debug: true
+    enable-open-api: true
+    enable-group: true
+  basic:
+    enable: true
+    username: crescity
+    password: crescity
