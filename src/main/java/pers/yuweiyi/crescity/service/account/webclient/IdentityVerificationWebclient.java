@@ -12,7 +12,7 @@ package pers.yuweiyi.crescity.service.account.webclient;
  * Description: 实名认证网络客户端接口。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 0.1
+ * @version 1.0
  * @since 2024.03.09
  */
 public interface IdentityVerificationWebclient {

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * Description: 账户数据访问对象。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.10
  */
 @NoArgsConstructor
@@ -37,6 +37,7 @@ public class AccountDao {
      * @Author 于魏祎 Yu Weiyi
      */
     public AccountDao(String uid, String passwordHash) {
+
         this._id = null;
         this.isDeleted = false;
         this.uid = uid;

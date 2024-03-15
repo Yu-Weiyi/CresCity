@@ -8,8 +8,8 @@ package pers.yuweiyi.crescity.service.account.controller;
  * @last_edit   2024.03.12
  */
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,12 +24,12 @@ import pers.yuweiyi.crescity.service.account.service.LoginService;
  * Description: 账户登录控制器。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.12
  */
 @RestController
-@RequestMapping("/api/service/login")
-@Api(tags = "用户登录相关接口")
+@RequestMapping("/login")
+@Tag(name = "用户登录相关接口")
 @Slf4j
 public class LoginController {
 
@@ -42,12 +42,11 @@ public class LoginController {
      * @return Result String
      * @Author 于魏祎 Yu Weiyi
      */
-    @PostMapping("/by_uid")
-    @ApiOperation("账户密码方式登录接口")
+    @PostMapping("/by-uid")
+    @Operation(summary = "账户密码方式登录接口")
     public Result<String> loginByUid(@RequestBody LoginByUidDto loginByUidDto) {
 
         log.debug("收到登录请求。");
-
         String token = loginService.loginByUid(loginByUidDto);
         return Result.success(token);
     }

@@ -8,8 +8,8 @@ package pers.yuweiyi.crescity.service.account.controller;
  * @last_edit   2024.03.14
  */
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,12 +22,12 @@ import pers.yuweiyi.crescity.service.account.service.LogoutService;
  * Description: 账户登出控制器。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.14
  */
 @RestController
-@RequestMapping("/api/service/logout")
-@Api(tags = "用户登出相关接口")
+@RequestMapping("/logout")
+@Tag(name = "用户登出相关接口")
 @Slf4j
 public class LogoutController {
 
@@ -40,11 +40,10 @@ public class LogoutController {
      * @Author 于魏祎 Yu Weiyi
      */
     @DeleteMapping
-    @ApiOperation("登出接口")
+    @Operation(summary = "登出接口")
     public Result<String> logout() {
 
         log.debug("收到登出请求");
-
         String oldUid = logoutService.logout();
         return Result.success(oldUid);
     }

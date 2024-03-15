@@ -27,7 +27,7 @@ import java.time.Duration;
  * Description: 网络客户端工具。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.1
+ * @version 1.2
  * @since 2024.03.09
  */
 @Component
@@ -35,7 +35,6 @@ import java.time.Duration;
 @Slf4j
 public class WebClientUtil {
 
-//    @Autowired
     private WebClientConfiguration webClientConfiguration;
 
     private final WebClient webClient;
@@ -48,6 +47,7 @@ public class WebClientUtil {
      * @Author 于魏祎 Yu Weiyi
      */
     public WebClientUtil(WebClientConfiguration webClientConfiguration) {
+
         this.webClient = WebClient.builder()
                 //set timeout
                 .clientConnector(new ReactorClientHttpConnector(

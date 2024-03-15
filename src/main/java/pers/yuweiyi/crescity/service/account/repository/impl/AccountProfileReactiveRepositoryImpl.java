@@ -23,7 +23,7 @@ import java.util.Map;
  * Description: 账户资料响应式存储器实现。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.12
  */
 @Repository
@@ -36,13 +36,13 @@ public class AccountProfileReactiveRepositoryImpl implements AccountProfileReact
     /**
      * @param newUid 新账户uid。
      * @return void
-     * @Description 新建文档。
+     * @Description 新建账户资料文档。
      * @Author 于魏祎 Yu Weiyi
      */
     @Override
     public void create(String newUid) {
+
         accountProfileReactiveMongoRepository.save(new AccountProfileDao(newUid)).block();
-        log.debug("新建文档。");
     }
 
     /**
@@ -56,6 +56,7 @@ public class AccountProfileReactiveRepositoryImpl implements AccountProfileReact
      */
     @Override
     public void updateWhenRegisterTypeC(String uid, String idCardNum, String realName, String nickName) {
+
         AccountProfileDao accountProfileDao =  accountProfileReactiveMongoRepository.findByUid(uid).block();
         accountProfileDao.setDeleted(false);
         accountProfileDao.setAccountType("C");
@@ -78,6 +79,7 @@ public class AccountProfileReactiveRepositoryImpl implements AccountProfileReact
      * @Author 于魏祎 Yu Weiyi
      */
     ObjectId tetrieveIdByUid(String uid) {
+
         return accountProfileReactiveMongoRepository.findByUid(uid).block().get_id();
     }
 }

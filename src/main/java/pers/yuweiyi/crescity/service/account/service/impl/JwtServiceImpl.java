@@ -26,7 +26,7 @@ import java.util.Map;
  * Description: JWT服务实现。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.1
+ * @version 1.2
  * @since 2024.03.13
  */
 @Service
@@ -103,7 +103,6 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String verifyToken(String token) {
 
-        log.debug("校验JWT。");
         Claims claims =  jwtUtil.retrieve(jwtConfiguration.getSecretKey(), token);
         String uid = claims.get("uid").toString();
         String cachedToken = retrieveToken(uid);

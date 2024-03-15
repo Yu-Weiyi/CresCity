@@ -23,7 +23,7 @@ import pers.yuweiyi.crescity.service.account.webclient.IdentityVerificationWebcl
  * Description: 实名认证网络客户端实现。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 0.1
+ * @version 1.0
  * @since 2024.03.09
  */
 @Component

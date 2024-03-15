@@ -24,7 +24,7 @@ import java.util.Map;
  * Description: 账户资料数据访问对象。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.11
  */
 @Collation("account_profile")
@@ -56,6 +56,7 @@ public class AccountProfileDao {
      * @Author 于魏祎 Yu Weiyi
      */
     public AccountProfileDao(String uid) {
+
         this.isDeleted = false;
         this.uid = uid;
     }

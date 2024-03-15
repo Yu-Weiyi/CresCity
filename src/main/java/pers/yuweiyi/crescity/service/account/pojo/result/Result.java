@@ -16,7 +16,7 @@ import java.io.Serializable;
  * Description: 结果对象。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.1
+ * @version 1.2
  * @since 2024.03.08
  */
 @Data
@@ -33,6 +33,7 @@ public class Result<T> implements Serializable {
      * @Author 于魏祎 Yu Weiyi
      */
     public static <T> Result<T> success() {
+
         Result<T> newResult = new Result<T>();
         newResult.code = "00000";
         return  newResult;
@@ -46,6 +47,7 @@ public class Result<T> implements Serializable {
      * @Author 于魏祎 Yu Weiyi
      */
     public static <T> Result<T> success(T dataObject) {
+
         Result<T> newResult = new Result<T>();
         newResult.code = "00000";
         newResult.data = dataObject;
@@ -61,6 +63,7 @@ public class Result<T> implements Serializable {
      * @Author 于魏祎 Yu Weiyi
      */
     public static <T> Result<T> error(String code, String msg) {
+
         Result<T> newResult = new Result<T>();
         newResult.code = code;
         newResult.msg = msg;
@@ -68,6 +71,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> error(String exceptionConstant) {
+
         Result<T> newResult = new Result<T>();
         newResult.code = exceptionConstant.substring(0, 5);
         newResult.msg = exceptionConstant.substring(6);
@@ -84,6 +88,7 @@ public class Result<T> implements Serializable {
      * @Author 于魏祎 Yu Weiyi
      */
     public static <T> Result<T> error(String code, String msg, T dataObject) {
+
         Result<T> newResult = new Result<T>();
         newResult.code = code;
         newResult.msg = msg;
@@ -97,6 +102,7 @@ public class Result<T> implements Serializable {
      * @Author 于魏祎 Yu Weiyi
      */
     public boolean isSucceed() {
+
         return this.code.equals("00000");
     }
 }
