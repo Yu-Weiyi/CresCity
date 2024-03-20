@@ -12,12 +12,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.HandlerInterceptor;
 import pers.yuweiyi.crescity.service.cityservice.configuration.JwtConfiguration;
 import pers.yuweiyi.crescity.service.cityservice.context.BaseContext;
-import pers.yuweiyi.crescity.service.cityservice.service.JwtService;
+import pers.yuweiyi.crescity.service.cityservice.pojo.result.Result;
+import pers.yuweiyi.crescity.service.cityservice.util.WebClientUtil;
 
 /**
  * Description: JWT令牌拦截器。
@@ -34,7 +37,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
     private JwtConfiguration jwtConfiguration;
 
     @Autowired
-    private JwtService jwtService;
+    private WebClientUtil webClientUtil;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
@@ -45,7 +48,9 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         log.debug("JWT校验。");
         try {
             String token = request.getHeader(jwtConfiguration.getTokenName());
-            String uid = jwtService.verifyToken(token);
+            WebClient.ResponseSpec responseSpec =  webClientUtil.request(HttpMethod.POST, "http://localhost:8080/api/service/account/authentication", "", token);
+            Result<String> result = responseSpec.bodyToMono(Result.class).block();
+            String uid = result.getData();
             BaseContext.createUid(uid);
             return true;
         }
