@@ -37,7 +37,6 @@ public class AuthenticationController {
 
     /**
      * @Description  请求认证。
-     * @param jwtToken JWT Token
      * @return Result String 账户UID。
      * @Author 于魏祎 Yu Weiyi
      */
@@ -50,7 +49,7 @@ public class AuthenticationController {
             }
     )
     @ApiOperationSupport(author = "于魏祎 yu_weiyi@outlook.com")
-    public Result<String> authentication(@RequestBody String jwtToken) {
+    public Result<String> authentication() {
 
         log.debug("收到认证请求。");
         return Result.success(BaseContext.retrieveUid());

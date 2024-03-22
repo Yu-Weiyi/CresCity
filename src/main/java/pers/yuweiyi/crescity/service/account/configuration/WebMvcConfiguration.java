@@ -5,7 +5,7 @@ package pers.yuweiyi.crescity.service.account.configuration;
  * @author      于魏祎 Yu Weiyi
  * @email       yu_weiyi@outlook.com
  * @date        2024.03.14
- * @last_edit   2024.03.14
+ * @last_edit   2024.03.22
  */
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import pers.yuweiyi.crescity.service.account.interceptor.JwtTokenInterceptor;
  * Description: 网络配置。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.14
  */
 @Configuration
@@ -39,15 +39,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
         log.info("注册拦截器。");
         interceptorRegistry.addInterceptor(jwtTokenInterceptor)
-
-                .addPathPatterns("/api/service/account/**")
+                .addPathPatterns("/**")
                 //third party
-                .excludePathPatterns("/api/service/account/v3/api-docs/**")//api-docs
-                .excludePathPatterns("/api/service/account/swagger-ui/**")//swagger-ui
-                .excludePathPatterns("/api/service/account/doc.html")//knife4j
+                .excludePathPatterns("/v3/api-docs/**")//api-docs
+                .excludePathPatterns("/swagger-ui/**")//swagger-ui
+                .excludePathPatterns("/doc.html")//knife4j
                 //crescity
-                .excludePathPatterns("/api/service/account/register/**")
-                .excludePathPatterns("/api/service/account/login/**");
+                .excludePathPatterns("/register/**")
+                .excludePathPatterns("/login/**");
     }
 
     /**
