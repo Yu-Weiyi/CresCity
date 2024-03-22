@@ -5,7 +5,7 @@ package pers.yuweiyi.crescity.service.account.mapper;
  * @author      于魏祎 Yu Weiyi
  * @email       yu_weiyi@outlook.com
  * @date        2024.03.10
- * @last_edit   2024.03.10
+ * @last_edit   2024.03.22
  */
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,7 +15,7 @@ import pers.yuweiyi.crescity.service.account.pojo.dao.AccountDao;
  * Description: 账户映射器。
  *
  * @author 于魏祎 Yu Weiyi
- * @version 1.0
+ * @version 1.1
  * @since 2024.03.10
  */
 @Mapper
@@ -44,4 +44,12 @@ public interface AccountMapper {
      * @Author 于魏祎 Yu Weiyi
      */
     String retrievePasswordHash(String uid);
+
+    /**
+     * @Description  更新账户记录。
+     * @param accountDao
+     * @return void
+     * @Author 于魏祎 Yu Weiyi
+     */
+    void updatePasswordHash(AccountDao accountDao);
 }

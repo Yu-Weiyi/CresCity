@@ -22,4 +22,10 @@
         FROM account
         WHERE pk_uid=#{uid}
     </select>
+
+    <update id="updatePasswordHash">
+        UPDATE account
+        SET password_hash=#{passwordHash}
+        WhERE pk_uid=#{uid}
+    </update>
 </mapper>
